@@ -1,4 +1,4 @@
-https://lydiahsu.github.io/Intro_Data_Science_Fall_2018/
+https://lydiahsu.github.io/Intro_Data_Science_Spring_2019/
 
 ## Welcome to GitHub Pages
 
