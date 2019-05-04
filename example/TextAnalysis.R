@@ -1,6 +1,10 @@
 ### Some Basic Text Analysis in R 
 ## based on https://www.tidytextmining.com/index.html
 
+install.packages("tidytext")
+install.packages("janeaustenr")
+
+
 library(tidytext)
 library(janeaustenr)
 library(dplyr)
@@ -25,6 +29,8 @@ tidy_books <- original_books %>%
 
 tidy_books
 
+tidy_books %>%
+  count(word, sort = TRUE) 
 
 data(stop_words)
 
@@ -41,6 +47,21 @@ tidy_books %>%
 
 # compare the result of this to if we had run it before removing stop words?
 # can extrack text from other texts, such as those stored in project gutenburg...
+install.packages("gutenbergr")
+library(gutenbergr)
+
+monte_cristo <- gutenberg_download(1184)
+
+monte_cristo %>%
+  unnest_tokens(word, text) %>%
+  count(word, sort = T)
+
+austen <- gutenberg_works(author == "Austen, Jane") %>%
+  gutenberg_download(meta_fields = "title")
+
+austen
+austen %>%
+  count(title)
 
 
 ## Do some basic Sentiment Analysis of this text next ####
@@ -113,6 +134,8 @@ book_words <- left_join(book_words, total_words)
 book_words
 
 # Zipf's law states that the frequency that a word appears is inversely proportional to its rank. 
+
+#https://en.wikipedia.org/wiki/Zipf%27s_law
 
 library(ggplot2)
 
@@ -192,19 +215,3 @@ beta_spread
 
 
 
-
-
-
-
-
-
-
-#
-##
-## Do a sentiment analysis on NYT tweets ####
-
-install.packages("rtweet")
-
-library(rtweet)
-
-? search_tweets
